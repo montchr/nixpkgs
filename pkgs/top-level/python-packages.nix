@@ -7491,6 +7491,7 @@ in {
   };
 
   pythonix = callPackage ../development/python-modules/pythonix {
+    nix = pkgs.nix_2_3;
     meson = pkgs.meson.override { python3 = self.python; };
   };
 
