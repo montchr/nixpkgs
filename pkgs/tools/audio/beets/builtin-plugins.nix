@@ -12,9 +12,7 @@
     deprecated = true;
     testPaths = [ ];
   };
-  advancedrewrite = {
-    testPaths = [ ];
-  };
+  advancedrewrite = { };
   acousticbrainz = {
     deprecated = true;
     propagatedBuildInputs = [ python3Packages.requests ];
@@ -26,7 +24,6 @@
       flask-cors
       pillow
     ];
-    testPaths = [ ];
   };
   autobpm = {
     propagatedBuildInputs = with python3Packages; [
@@ -34,7 +31,6 @@
       # An optional dependency of librosa, needed for beets' autobpm
       resampy
     ];
-    testPaths = [ ];
   };
   badfiles = {
     testPaths = [ ];
