@@ -15,7 +15,10 @@
   advancedrewrite = {
     testPaths = [ ];
   };
-  acousticbrainz.propagatedBuildInputs = [ python3Packages.requests ];
+  acousticbrainz = {
+    deprecated = true;
+    propagatedBuildInputs = [ python3Packages.requests ];
+  };
   albumtypes = { };
   aura = {
     propagatedBuildInputs = with python3Packages; [
