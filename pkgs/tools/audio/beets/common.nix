@@ -172,7 +172,7 @@ EOF
     description = "Music tagger and library organizer";
     homepage = "https://beets.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ aszlig doronbehar lovesegfault pjones ];
+    maintainers = with maintainers; [ aszlig doronbehar lovesegfault montchr pjones ];
     platforms = platforms.linux;
     mainProgram = "beet";
   };
