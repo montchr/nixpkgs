@@ -16,7 +16,11 @@
   acousticbrainz.propagatedBuildInputs = [ python3Packages.requests ];
   albumtypes = { };
   aura = {
-    propagatedBuildInputs = with python3Packages; [ flask pillow ];
+    propagatedBuildInputs = with python3Packages; [
+      flask
+      flask-cors
+      pillow
+    ];
     testPaths = [ ];
   };
   badfiles = {
@@ -49,7 +53,12 @@
   embyupdate.propagatedBuildInputs = [ python3Packages.requests ];
   export = { };
   fetchart = {
-    propagatedBuildInputs = with python3Packages; [ requests pillow ];
+    propagatedBuildInputs = with python3Packages; [
+      beautifulsoup4
+      langdetect
+      pillow
+      requests
+    ];
     wrapperBins = [ imagemagick ];
   };
   filefilter = { };
@@ -80,7 +89,11 @@
     propagatedBuildInputs = [ python3Packages.requests ];
     testPaths = [ ];
   };
-  lyrics.propagatedBuildInputs = [ python3Packages.beautifulsoup4 ];
+  lyrics.propagatedBuildInputs = with python3Packages; [
+    beautifulsoup4
+    langdetect
+    requests
+  ];
   mbcollection.testPaths = [ ];
   mbsubmit = { };
   mbsync = { };
@@ -118,7 +131,10 @@
   };
   types.testPaths = [ "test/plugins/test_types_plugin.py" ];
   unimported.testPaths = [ ];
-  web.propagatedBuildInputs = [ python3Packages.flask ];
+  web.propagatedBuildInputs = with python3Packages; [
+    flask
+    flask-cors
+  ];
   zero = { };
   limit = { };
   substitute = {

@@ -21,14 +21,12 @@ lib.makeExtensible (self: {
 
   beets-stable = callPackage ./common.nix rec {
     inherit python3Packages;
-    # NOTE: ./builtin-plugins.nix and ./common.nix can have some conditionals
-    # be removed when stable version updates
-    version = "2.0.0";
+    version = "2.1.0";
     src = fetchFromGitHub {
       owner = "beetbox";
       repo = "beets";
       rev = "v${version}";
-      hash = "sha256-6pmImyopy0zFBDYoqDyWcBv61FK1kGsZwW2+7fzAnq8=";
+      hash = "sha256-XBNWPchIrWnS0gXDbTspxY+KjHPjkSinvYcW8xBFGAE=";
     };
     extraPatches = [
       # Bash completion fix for Nix

@@ -39,15 +39,7 @@ let
   , enable ? !disableAllPlugins
   , builtin ? false
   , propagatedBuildInputs ? [ ]
-  , testPaths ? [
-    # NOTE: This conditional can be removed when beets-stable is updated and
-    # the default plugins test path is changed
-    (if (lib.versions.majorMinor version) == "1.6" then
-      "test/test_${name}.py"
-    else
-      "test/plugins/test_${name}.py"
-    )
-  ]
+  , testPaths ? [ "test/plugins/test_${name}.py" ]
   , wrapperBins ? [ ]
   }: {
     inherit name enable builtin propagatedBuildInputs testPaths wrapperBins;
@@ -68,26 +60,31 @@ let
   disabledPlugins = lib.filterAttrs (_: p: !p.enable) allPlugins;
 
   pluginWrapperBins = concatMap (p: p.wrapperBins) (attrValues enabledPlugins);
+
+  disabledTestPaths = lib.flatten (attrValues (lib.mapAttrs (_: v: v.testPaths) disabledPlugins));
 in
 python3Packages.buildPythonApplication {
   pname = "beets";
   inherit src version;
+  pyproject = true;
 
   patches = extraPatches;
 
-  propagatedBuildInputs = with python3Packages; [
+  build-system = [
+    python3Packages.poetry-core
+  ];
+
+  dependencies = with python3Packages; [
     confuse
     gst-python
     jellyfish
     mediafile
     munkres
     musicbrainzngs
-    mutagen
-    pygobject3
+    platformdirs
     pyyaml
-    reflink
-    unidecode
     typing-extensions
+    unidecode
   ] ++ (concatMap (p: p.propagatedBuildInputs) (attrValues enabledPlugins));
 
   nativeBuildInputs = [
@@ -125,8 +122,11 @@ python3Packages.buildPythonApplication {
     responses
   ] ++ pluginWrapperBins;
 
-  disabledTestPaths = lib.flatten (attrValues (lib.mapAttrs (_: v: v.testPaths) disabledPlugins));
   inherit disabledTests;
+  disabledTestPaths = disabledTestPaths ++ [
+    # touches network
+    "test/plugins/test_aura.py"
+  ];
 
   # Perform extra "sanity checks", before running pytest tests.
   preCheck = ''
