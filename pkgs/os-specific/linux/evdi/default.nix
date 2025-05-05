@@ -6,6 +6,7 @@
   kernelModuleMakeFlags,
   libdrm,
   python3,
+  pkg-config,
 }:
 
 let
@@ -37,6 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     kernel
     libdrm
+    pkg-config
     python3WithLibs
   ];
 
